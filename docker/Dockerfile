@@ -14,6 +14,7 @@ COPY zookeeper-authors-keys .
 
 RUN set -x \
     && apt-get update \
+    && apt-get -y dist-upgrade \
     && apt-get install -y openjdk-8-jre-headless wget netcat-openbsd gpg\
 	&& wget -O "$ZK_DIST.tar.gz" -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/apache-$ZK_DIST-bin.tar.gz" \
     && wget -O "$ZK_DIST.tar.gz.asc" -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/apache-$ZK_DIST-bin.tar.gz.asc" \

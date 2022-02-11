@@ -1,6 +1,6 @@
 # Docker Image
-The docker image contained in this repository is comprised of a base Ubuntu 16.04 image using the latest release of the 
-OpenJDK JRE based on the 1.8 JVM and the latest stable release of ZooKeeper, 3.5.6. Ubuntu is a much larger image than 
+The docker image contained in this repository is comprised of a base Ubuntu 18.04 image using the latest release of the 
+OpenJDK JRE based on the 1.8 JVM and the latest stable release of ZooKeeper, 3.5.9. Ubuntu is a much larger image than 
 BusyBox or Alpine, but these images contain mucl or ulibc. This requires a custom version of OpenJDK to be built 
 against a libc runtime other than glibc. No vendor of the ZooKeeper software supplies or verifies the software against 
 such a JVM, and, while Alpine or BusyBox would provide smaller images, we have prioritized a well known environment.
@@ -13,8 +13,7 @@ in /var/lib/zookeeper. This is identical to the RPM distribution that users shou
 ## Makefile 
 The [makefile](Makefile) contained in the docker directory has three commands.
 - The `build` command will build the Docker image locally.
-- The `push` command will push the image, provided you have correct permissions, 
-to grc.io/containers repository.
+- The `push` command will push the image to emresaglam's repo. Change this to your repo. 
 - The `all` command will perform the `build` command.
 
 The [scripts](scripts) directory contains useful utilities for managing the 

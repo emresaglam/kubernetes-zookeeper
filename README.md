@@ -1,3 +1,14 @@
+# Notes from emresaglam
+I forked the original repo because I needed to have a quick update for this container. It was based on Ubuntu 16.04 and ZK 3.4.10. Since they both went EOL, I wanted maintained versions of the base image and ZK. 
+
+I [used a PR](https://github.com/emresaglam/kubernetes-zookeeper/pull/1) that was never merged into the original repo. (Thank you [vmakato](https://github.com/vmakoto).)
+
+I edited the scripts to include the ZooKeeper version 3.5.9 and based the docker container from Ubuntu 18.04. I also slightly modified the `zookeeper-ready` script to wait for `1s` for `nc`. It would sporadically die otherwise. (liveness and readyness checks depends on this script, read more below)  
+
+I built and pushed a container [here](https://hub.docker.com/r/emresaglam/kubernetes-zookeeper) if you want to try it out. 
+
+Anything below is the original README.
+
 # Kubernetes ZooKeeper
 This project contains tools to facilitate the deployment of 
 [Apache ZooKeeper](https://zookeeper.apache.org/) on 
