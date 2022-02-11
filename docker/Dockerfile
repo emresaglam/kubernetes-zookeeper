@@ -7,6 +7,8 @@ JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 ARG ZK_VERSION=3.5.9
 ARG ZK_DIST=zookeeper-$ZK_VERSION
+ARG RELOAD4J_VERSION=1.2.19
+ARG RELOAD4J_DIST=reload4j-$RELOAD4J_VERSION
 
 COPY zookeeper-authors-keys .
 
@@ -22,6 +24,9 @@ RUN set -x \
     && tar -xzf "$ZK_DIST.tar.gz" -C /opt/$ZK_DIST --strip-components 1 \
     && rm -r "$GNUPGHOME" "$ZK_DIST.tar.gz" "$ZK_DIST.tar.gz.asc" \
     && ln -s /opt/$ZK_DIST /opt/zookeeper \
+    && wget -O "$RELOAD4J_DIST.jar" -q "https://repo1.maven.org/maven2/ch/qos/reload4j/reload4j/$RELOAD4J_VERSION/$RELOAD4J_DIST.jar" \
+    && cp $RELOAD4J_DIST.jar /opt/zookeeper/lib/ \
+    && rm /opt/zookeeper/lib/log4j-*.jar \
     && rm -rf /opt/zookeeper/CHANGES.txt \
     /opt/zookeeper/README.txt \
     /opt/zookeeper/NOTICE.txt \
@@ -39,6 +44,7 @@ RUN set -x \
     /opt/zookeeper/$ZK_DIST.jar.asc \
     /opt/zookeeper/$ZK_DIST.jar.md5 \
     /opt/zookeeper/$ZK_DIST.jar.sha1 \
+    /usr/bin/*.cmd \
 	&& apt-get autoremove -y wget \
 	&& rm -rf /var/lib/apt/lists/*
 

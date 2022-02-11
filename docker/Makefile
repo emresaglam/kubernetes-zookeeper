@@ -1,4 +1,4 @@
-VERSION=3.5.9-0
+VERSION=3.5.9-0-reload4j
 PROJECT=emresaglam
 
 all: build
