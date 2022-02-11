@@ -10,17 +10,16 @@ ARG ZK_DIST=zookeeper-$ZK_VERSION
 ARG RELOAD4J_VERSION=1.2.19
 ARG RELOAD4J_DIST=reload4j-$RELOAD4J_VERSION
 
-COPY zookeeper-authors-keys .
-
 RUN set -x \
     && apt-get update \
     && apt-get -y dist-upgrade \
     && apt-get install -y openjdk-8-jre-headless wget netcat-openbsd gpg\
-	&& wget -O "$ZK_DIST.tar.gz" -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/apache-$ZK_DIST-bin.tar.gz" \
+    && wget -O "$ZK_DIST.tar.gz" -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/apache-$ZK_DIST-bin.tar.gz" \
     && wget -O "$ZK_DIST.tar.gz.asc" -q "http://www.apache.org/dist/zookeeper/$ZK_DIST/apache-$ZK_DIST-bin.tar.gz.asc" \
     && export GNUPGHOME="$(mktemp -d)" \
-    && gpg --import zookeeper-authors-keys \
-#    && gpg --batch --verify "$ZK_DIST.tar.gz.asc" "$ZK_DIST.tar.gz" \
+    && wget -O KEYS https://downloads.apache.org/zookeeper/KEYS \
+    && gpg --import KEYS \
+    && gpg --batch --verify "$ZK_DIST.tar.gz.asc" "$ZK_DIST.tar.gz" \
     && mkdir opt/$ZK_DIST \
     && tar -xzf "$ZK_DIST.tar.gz" -C /opt/$ZK_DIST --strip-components 1 \
     && rm -r "$GNUPGHOME" "$ZK_DIST.tar.gz" "$ZK_DIST.tar.gz.asc" \
